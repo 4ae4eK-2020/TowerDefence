@@ -7,11 +7,12 @@ public class TowerSetup : MonoBehaviour
 {
     [SerializeField] private Tilemap tilemap;
     [SerializeField] private GridLayout grid;
-    public GameObject tower;
+    public List<GameObject> towers;
     [SerializeField] private Camera cam;
     [SerializeField] private CostManager cost;
     [SerializeField] private int towerCost;
-    
+
+    [SerializeField] private GameObject tower;
     private Vector3 mousePos;
     private Vector3Int tilePos;
     private Vector3 towerPos;
@@ -21,7 +22,7 @@ public class TowerSetup : MonoBehaviour
     public void SetCurrentTower(string towerName)
     {
         Debug.Log("Нажато");
-        tower = GameObject.Find(towerName);
+        tower = towers.Find(item => item.name == towerName);
     }
     
     void Start()
@@ -40,7 +41,6 @@ public class TowerSetup : MonoBehaviour
             grid.CellToWorld(tilePos);
             if (Input.GetMouseButtonDown(1) && cost.money >= towerCost)
             {
-
                 int index = isSetuped.FindIndex(item => item == towerPos);
                 
                 if(tilemap.GetTile(tilePos) != null && index == -1)
